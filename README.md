@@ -40,30 +40,9 @@ A full-stack client project management application built with Laravel and React.
 
 ## Project Structure
 
-project/
-├── backend/
-│   ├── app/
-│   │   ├── Http/
-│   │   ├── Models/
-│   │   └── ...
-│   ├── database/
-│   ├── routes/
-│   └── tests/
-│       └── Feature/
-│           └── ProjectControllerTest.php
-│
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── ProjectForm.tsx
-    │   │   └── ProjectList.tsx
-    │   ├── services/
-    │   │   └── projectService.ts
-    │   ├── types/
-    │   │   └── project.ts
-    │   ├── App.tsx
-    │   └── ...
-    └── package.json
+The project is divided into two main applications: backend and frontend. The backend is a Laravel application containing the API controllers, Form Requests, API Resources, models, database migrations, routes, and feature tests. The backend tests are located in tests/Feature/ProjectControllerTest.php.
+
+The frontend is a React and TypeScript application built with Vite. Its src directory contains the reusable components, including ProjectForm.tsx and ProjectList.tsx, API communication logic in services/projectService.ts, shared TypeScript definitions in types/project.ts, and the main application component in App.tsx. The frontend dependencies and development scripts are defined in package.json.
 
 ## Setup Instructions
 
