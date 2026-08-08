@@ -24,7 +24,9 @@ function App() {
     const handleSaved = () => {
         setShowForm(false);
         setEditingProject(null);
-        setRefreshTrigger((current) => current + 1);
+        setRefreshTrigger(
+            (current) => current + 1
+        );
     };
 
     const handleCancel = () => {
@@ -35,6 +37,7 @@ function App() {
     return (
         <div className="app">
             <div className="app-container">
+
                 <header className="app-header">
                     <div>
                         <h1 className="app-title">
@@ -42,7 +45,8 @@ function App() {
                         </h1>
 
                         <p className="app-subtitle">
-                            Manage your projects and track their progress.
+                            Manage your projects and track
+                            their progress.
                         </p>
                     </div>
                 </header>
@@ -60,6 +64,7 @@ function App() {
                         refreshTrigger={refreshTrigger}
                     />
                 )}
+
             </div>
         </div>
     );

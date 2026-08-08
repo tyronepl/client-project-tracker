@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import type {
-    Project,
-    ProjectPriority,
-    ProjectStatus,
-} from '../types/project';
+import type { Project } from '../types/project';
+
 import {
     createProject,
     updateProject,
+    type ProjectFormData,
 } from '../services/projectService';
 
 interface ProjectFormProps {
@@ -19,8 +17,8 @@ type FormData = {
     client_name: string;
     project_name: string;
     description: string;
-    status: ProjectStatus;
-    priority: ProjectPriority;
+    status: Project['status'];
+    priority: Project['priority'];
     start_date: string;
     due_date: string;
 };
@@ -50,10 +48,12 @@ function ProjectForm({
 
     const isEditing = project !== null;
 
+    /*
+     * Populate form when editing
+     */
     useEffect(() => {
         if (project) {
             setFormData({
-                // API response uses camelCase
                 client_name: project.clientName,
                 project_name: project.projectName,
                 description: project.description ?? '',
@@ -69,6 +69,9 @@ function ProjectForm({
         setErrors({});
     }, [project]);
 
+    /*
+     * Handle input changes
+     */
     const handleChange = (
         event: React.ChangeEvent<
             HTMLInputElement |
@@ -91,6 +94,9 @@ function ProjectForm({
         }
     };
 
+    /*
+     * Submit
+     */
     const handleSubmit = async (
         event: React.FormEvent
     ) => {
@@ -100,17 +106,33 @@ function ProjectForm({
             setSaving(true);
             setErrors({});
 
-            if (isEditing && project) {
+            /*
+             * Convert the form's snake_case fields
+             * into the frontend ProjectFormData format.
+             */
+            const payload: ProjectFormData = {
+                clientName: formData.client_name,
+                projectName: formData.project_name,
+                description: formData.description,
+                status: formData.status,
+                priority: formData.priority,
+                startDate: formData.start_date,
+                dueDate: formData.due_date,
+            };
+
+            if (isEditing) {
                 await updateProject(
                     project.id,
-                    formData
+                    payload
                 );
             } else {
-                await createProject(formData);
+                await createProject(payload);
             }
 
             onSaved();
         } catch (error: any) {
+            console.error(error);
+
             if (error.response?.status === 422) {
                 setErrors(
                     error.response.data.errors ?? {}
@@ -194,8 +216,7 @@ function ProjectForm({
                             {errors.client_name && (
                                 <span className="field-error">
                                     {
-                                        errors
-                                            .client_name[0]
+                                        errors.client_name[0]
                                     }
                                 </span>
                             )}
@@ -222,8 +243,7 @@ function ProjectForm({
                             {errors.project_name && (
                                 <span className="field-error">
                                     {
-                                        errors
-                                            .project_name[0]
+                                        errors.project_name[0]
                                     }
                                 </span>
                             )}
@@ -235,6 +255,7 @@ function ProjectForm({
                     <div className="form-field">
                         <label htmlFor="description">
                             Description
+
                             <span className="optional">
                                 Optional
                             </span>
@@ -254,8 +275,7 @@ function ProjectForm({
                         {errors.description && (
                             <span className="field-error">
                                 {
-                                    errors
-                                        .description[0]
+                                    errors.description[0]
                                 }
                             </span>
                         )}
@@ -280,7 +300,9 @@ function ProjectForm({
                             <select
                                 id="status"
                                 name="status"
-                                value={formData.status}
+                                value={
+                                    formData.status
+                                }
                                 onChange={handleChange}
                             >
                                 <option value="Planning">
@@ -338,8 +360,7 @@ function ProjectForm({
                             {errors.priority && (
                                 <span className="field-error">
                                     {
-                                        errors
-                                            .priority[0]
+                                        errors.priority[0]
                                     }
                                 </span>
                             )}
@@ -354,8 +375,8 @@ function ProjectForm({
 
                             <input
                                 id="start_date"
-                                type="date"
                                 name="start_date"
+                                type="date"
                                 value={
                                     formData.start_date
                                 }
@@ -365,8 +386,7 @@ function ProjectForm({
                             {errors.start_date && (
                                 <span className="field-error">
                                     {
-                                        errors
-                                            .start_date[0]
+                                        errors.start_date[0]
                                     }
                                 </span>
                             )}
@@ -381,8 +401,8 @@ function ProjectForm({
 
                             <input
                                 id="due_date"
-                                type="date"
                                 name="due_date"
+                                type="date"
                                 value={
                                     formData.due_date
                                 }
@@ -392,8 +412,7 @@ function ProjectForm({
                             {errors.due_date && (
                                 <span className="field-error">
                                     {
-                                        errors
-                                            .due_date[0]
+                                        errors.due_date[0]
                                     }
                                 </span>
                             )}
@@ -431,4 +450,3 @@ function ProjectForm({
 }
 
 export default ProjectForm;
-
