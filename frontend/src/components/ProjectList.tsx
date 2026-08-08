@@ -7,6 +7,7 @@ import {
 
 interface ProjectListProps {
     onEdit: (project: Project) => void;
+    onView: (project: Project) => void;
     onCreate: () => void;
     refreshTrigger: number;
 }
@@ -24,6 +25,7 @@ type SortDirection = 'asc' | 'desc';
 
 function ProjectList({
     onEdit,
+    onView,
     onCreate,
     refreshTrigger,
 }: ProjectListProps) {
@@ -38,7 +40,7 @@ function ProjectList({
 
     // Sorting
     const [sortField, setSortField] =
-    useState<SortField>('id');
+        useState<SortField>('id');
 
     const [sortDirection, setSortDirection] =
         useState<SortDirection>('desc');
@@ -127,6 +129,11 @@ function ProjectList({
             let valueB = '';
 
             switch (sortField) {
+                case 'id':
+                    valueA = String(a.id);
+                    valueB = String(b.id);
+                    break;
+
                 case 'clientName':
                     valueA = a.clientName;
                     valueB = b.clientName;
@@ -188,7 +195,9 @@ function ProjectList({
     const handleSort = (field: SortField) => {
         if (sortField === field) {
             setSortDirection((current) =>
-                current === 'asc' ? 'desc' : 'asc'
+                current === 'asc'
+                    ? 'desc'
+                    : 'asc'
             );
 
             return;
@@ -285,7 +294,9 @@ function ProjectList({
                         placeholder="Search projects..."
                         value={search}
                         onChange={(event) =>
-                            setSearch(event.target.value)
+                            setSearch(
+                                event.target.value
+                            )
                         }
                     />
                 </div>
@@ -293,7 +304,9 @@ function ProjectList({
                 <select
                     value={statusFilter}
                     onChange={(event) =>
-                        setStatusFilter(event.target.value)
+                        setStatusFilter(
+                            event.target.value
+                        )
                     }
                 >
                     <option value="All">
@@ -320,7 +333,9 @@ function ProjectList({
                 <select
                     value={priorityFilter}
                     onChange={(event) =>
-                        setPriorityFilter(event.target.value)
+                        setPriorityFilter(
+                            event.target.value
+                        )
                     }
                 >
                     <option value="All">
@@ -362,6 +377,14 @@ function ProjectList({
                         No matching projects
                     </h3>
 
+                    {hasActiveFilters && (
+                        <button
+                            className="clear-filters-button"
+                            onClick={clearFilters}
+                        >
+                            Clear Filters
+                        </button>
+                    )}
                 </div>
             ) : (
                 <div className="table-wrapper">
@@ -463,7 +486,11 @@ function ProjectList({
                         <tbody>
                             {filteredProjects.map(
                                 (project) => (
-                                    <tr key={project.id}>
+                                    <tr
+                                        key={
+                                            project.id
+                                        }
+                                    >
 
                                         <td>
                                             <span className="client-name">
@@ -548,6 +575,19 @@ function ProjectList({
                                             <div className="actions">
 
                                                 <button
+                                                    type="button"
+                                                    className="action-button view-button"
+                                                    onClick={() =>
+                                                        onView(
+                                                            project
+                                                        )
+                                                    }
+                                                >
+                                                    View
+                                                </button>
+
+                                                <button
+                                                    type="button"
                                                     className="action-button edit-button"
                                                     onClick={() =>
                                                         onEdit(
@@ -559,6 +599,7 @@ function ProjectList({
                                                 </button>
 
                                                 <button
+                                                    type="button"
                                                     className="action-button delete-button"
                                                     onClick={() =>
                                                         handleDelete(

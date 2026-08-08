@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ProjectDetailsModal from './components/ProjectDetailsModal';
 import ProjectForm from './components/ProjectForm';
 import ProjectList from './components/ProjectList';
 import type { Project } from './types/project';
@@ -7,6 +8,9 @@ import './App.css';
 function App() {
     const [editingProject, setEditingProject] =
         useState<Project | null>(null);
+
+    const [viewingProject, setViewingProject] =
+    useState<Project | null>(null);
 
     const [showForm, setShowForm] = useState(false);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -19,6 +23,10 @@ function App() {
     const handleEdit = (project: Project) => {
         setEditingProject(project);
         setShowForm(true);
+    };
+
+    const handleView = (project: Project) => {
+        setViewingProject(project);
     };
 
     const handleSaved = () => {
@@ -60,11 +68,20 @@ function App() {
                 ) : (
                     <ProjectList
                         onEdit={handleEdit}
+                        onView={handleView}
                         onCreate={handleCreate}
                         refreshTrigger={refreshTrigger}
                     />
                 )}
 
+                {viewingProject && (
+                    <ProjectDetailsModal
+                        project={viewingProject}
+                        onClose={() =>
+                            setViewingProject(null)
+                        }
+                    />
+                )}
             </div>
         </div>
     );
