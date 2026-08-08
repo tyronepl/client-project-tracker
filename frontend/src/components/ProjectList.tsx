@@ -376,15 +376,6 @@ function ProjectList({
                     <h3>
                         No matching projects
                     </h3>
-
-                    {hasActiveFilters && (
-                        <button
-                            className="clear-filters-button"
-                            onClick={clearFilters}
-                        >
-                            Clear Filters
-                        </button>
-                    )}
                 </div>
             ) : (
                 <div className="table-wrapper">
