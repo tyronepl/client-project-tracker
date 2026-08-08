@@ -58,8 +58,8 @@ Make sure the following are installed:
 
 ### 1. Clone the repository
 
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/tyronepl/client-project-tracker.git
+cd client-project-tracker
 
 ### 2. Set up the Laravel backend
 
