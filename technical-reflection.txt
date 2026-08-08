@@ -1,0 +1,59 @@
+Technical Reflection
+Why did you choose this implementation approach?
+
+I chose a Laravel and React architecture because it provides a clear separation between the backend API and frontend user interface. Laravel handles the REST API, validation, database operations, and business logic, while React and TypeScript handle the user interface and client-side interactions.
+
+For the backend, I used Laravel Form Requests for validation, Eloquent for database operations, and API Resources to maintain a consistent API response structure. On the frontend, I separated the project form, project list, API service, and TypeScript types into their own files to keep the application maintainable.
+
+Search, filtering, and sorting were implemented on the frontend because the assessment involves a relatively small project dataset. This keeps the API simple while providing responsive interactions for the user.
+
+What tradeoffs did you make?
+
+The main tradeoff was implementing search, filtering, and sorting on the frontend instead of the backend. This reduces API complexity and makes the interface responsive, but it would not scale as well with thousands or millions of projects because all projects would need to be retrieved first.
+
+I also kept authentication out of the implementation because it was listed as optional. This allowed me to focus on the core project management functionality and API quality within the assessment scope.
+
+I prioritized a clean and straightforward implementation over adding unnecessary libraries or abstractions.
+
+What would you improve if given additional time?
+
+If I had additional time, I would improve the application by:
+
+-Moving search, filtering, sorting, and pagination to the backend for better scalability.
+-Adding authentication and authorization.
+-Adding more comprehensive frontend tests.
+-Adding API documentation, such as OpenAPI/Swagger documentation.
+-Improving accessibility, including keyboard navigation and screen-reader support.
+-Adding confirmation and notification components instead of relying on browser dialogs.
+-Adding Docker configuration for easier environment setup.
+-Adding deployment configuration and CI/CD.
+-Improving error handling and providing more detailed user feedback.
+-Adding pagination for larger datasets.
+-What was the most challenging part of this assessment?
+
+The most challenging part was making the frontend and backend work together consistently, particularly around API response structures, validation errors, editing existing projects, and keeping the UI state synchronized after creating, updating, or deleting projects.
+
+Another challenge was implementing the search, filtering, and sorting functionality while keeping it independent from the API and ensuring that the different filters and sorting options worked together correctly.
+
+Did you use AI tools during development?
+
+Yes.
+
+Which tools?
+
+I used ChatGPT as an AI development assistant.
+
+How were they used?
+
+I used ChatGPT primarily for development assistance, including:
+
+-Reviewing and improving React and TypeScript components.
+-Troubleshooting frontend and backend issues.
+-Reviewing Laravel controllers, Form Requests, and API implementation.
+-Improving CSS and UI structure.
+-Helping identify and fix bugs.
+-Discussing implementation approaches and tradeoffs.
+-Creating and reviewing backend feature tests.
+-Improving project documentation and the README.
+
+The final implementation was reviewed and tested locally, and I made the implementation decisions based on the requirements of the assessment.
