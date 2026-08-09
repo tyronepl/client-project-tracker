@@ -24,7 +24,7 @@ A full-stack client project management application built with Laravel and React.
 
 * **Laravel** — REST API and application backend
 * **PHP** — Backend programming language
-* **MySQL** — Database
+* **SQLite** — Database
 * **Laravel Eloquent** — Database ORM
 * **Laravel API Resources** — Consistent API response structure
 * **Laravel Form Requests** — Request validation
@@ -52,7 +52,7 @@ Make sure the following are installed:
 
 * PHP 8.2+
 * Composer
-* MySQL
+* PHP SQLite extension enabled
 * Node.js 18+
 * npm
 
@@ -82,21 +82,15 @@ php artisan key:generate
 
 ### 3. Configure the database
 
-Update the database settings in the backend `.env` file:
+The application uses SQLite as the development database.
 
-DB_CONNECTION=mysql
+Update the database setting in the backend `.env` file:
 
-DB_HOST=127.0.0.1
+DB_CONNECTION=sqlite
 
-DB_PORT=3306
+The SQLite database file is located at:
 
-DB_DATABASE=project_tracker
-
-DB_USERNAME=root
-
-DB_PASSWORD=
-
-Create the database in MySQL before running the migrations.
+backend/database/database.sqlite
 
 ### 4. Run migrations and seed data
 
@@ -234,7 +228,7 @@ The tests cover the project API functionality, including:
 * Authentication was not implemented because it was listed as an optional requirement.
 * Projects are currently accessible through the API without authentication.
 * Search, filtering, and sorting are implemented on the frontend.
-* The application uses MySQL as the development database.
+* The application uses SQLite as the development database.
 * The frontend and backend are run separately during local development.
 * The Laravel API is expected to run on `127.0.0.1:8000`.
 * The React development server is expected to run on Vite's default port, `5173`.
