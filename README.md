@@ -85,10 +85,15 @@ php artisan key:generate
 Update the database settings in the backend `.env` file:
 
 DB_CONNECTION=mysql
+
 DB_HOST=127.0.0.1
+
 DB_PORT=3306
+
 DB_DATABASE=project_tracker
+
 DB_USERNAME=root
+
 DB_PASSWORD=
 
 Create the database in MySQL before running the migrations.
@@ -142,11 +147,13 @@ Two development servers need to be running.
 ### Terminal 1 — Laravel
 
 cd backend
+
 php artisan serve
 
 ### Terminal 2 — React
 
 cd frontend
+
 npm run dev
 
 Then open the Vite URL shown in the terminal, normally:
